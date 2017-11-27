@@ -1,5 +1,9 @@
 const express = require('express')
 const hbs = require('express-handlebars')
+const authRoutes = require('./routes/auth')
+
+const passport = require('passport')
+require('./config/passport')(passport)
 
 const app = express()
 
@@ -13,6 +17,8 @@ app.get('/', (req, res) => {
     title,
   })
 })
+
+app.use('/auth', authRoutes)
 
 const port = process.env.PORT || 5000
 
