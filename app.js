@@ -1,11 +1,29 @@
 const express = require('express')
 const hbs = require('express-handlebars')
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
+const passport = require('passport')
+
+const dashboardRoutes = require('./routes/dashboard')
 const authRoutes = require('./routes/auth')
 
-const passport = require('passport')
+// Set up Passport
 require('./config/passport')(passport)
 
 const app = express()
+app.use(cookieParser())
+
+app.use(
+  session({
+    secret: 'wedD291oc92n39dlkps%ah*434',
+    resave: true,
+    saveUninitialized: true,
+  })
+)
+
+// Use Passport middleware after sesssion setup
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.engine('handlebars', hbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
@@ -18,6 +36,7 @@ app.get('/', (req, res) => {
   })
 })
 
+app.use('/dashboard', dashboardRoutes)
 app.use('/auth', authRoutes)
 
 const port = process.env.PORT || 5000
