@@ -5,8 +5,9 @@ const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const path = require('path')
 
-const mainRoutes = require('./routes')
 const authRoutes = require('./routes/auth')
+const mainRoutes = require('./routes')
+const storyRoutes = require('./routes/stories')
 
 // Set up Passport
 require('./config/passport')(passport)
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
 
 app.use('/', mainRoutes)
 app.use('/auth', authRoutes)
+app.use('/stories', storyRoutes)
 
 const port = process.env.PORT || 5000
 
