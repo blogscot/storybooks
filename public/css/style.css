@@ -1,0 +1,12 @@
+h1 {
+  font-size: 3rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  padding-top: 5px;
+}

@@ -18,6 +18,11 @@ router.get(
   }
 )
 
+router.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect('/')
+})
+
 router.get('/verify', (req, res) => {
   if (req.user) {
     console.log(req.user)

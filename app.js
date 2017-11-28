@@ -3,14 +3,21 @@ const hbs = require('express-handlebars')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
+const path = require('path')
 
-const dashboardRoutes = require('./routes/dashboard')
+const mainRoutes = require('./routes')
 const authRoutes = require('./routes/auth')
 
 // Set up Passport
 require('./config/passport')(passport)
 
 const app = express()
+
+// Middleware
+
+// Configuration for static css and images files
+app.use(express.static(path.join(__dirname, '/')))
+
 app.use(cookieParser())
 
 app.use(
@@ -28,15 +35,15 @@ app.use(passport.session())
 app.engine('handlebars', hbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// Routes
-app.get('/', (req, res) => {
-  const title = 'Welcome'
-  res.render('index', {
-    title,
-  })
+// Global variables
+app.use((req, res, next) => {
+  res.locals.user = req.user || null
+  next()
 })
 
-app.use('/dashboard', dashboardRoutes)
+// Routes
+
+app.use('/', mainRoutes)
 app.use('/auth', authRoutes)
 
 const port = process.env.PORT || 5000
