@@ -1,6 +1,11 @@
 <nav class="teal" role="navigation">
   <div class="nav-wrapper container">
     <a id="logo-container" href="/stories" class="brand-logo">StoryBooks</a>
+    <a href="#" data-activates="nav-mobile" class="button-collapse show-on-large">
+      <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+    </a>
+
+    {{!-- Right Nav --}}
     <ul class="right hide-on-med-and-down">
       {{#if user}}
       <li>
@@ -15,16 +20,39 @@
         <a href="/stories">
           <i class="fa fa-book" aria-hidden="true"></i> Public Stories</a>
       </li>
-
       {{/if}}
     </ul>
+
+    {{!-- Side Menu --}}
     <ul id="nav-mobile" class="side-nav">
+      {{#unless user}}
       <li>
-        <a href="#">Navbar Link</a>
+        <a href="/auth/google" class="btn red darken-1">
+          <i class="fa fa-google fa-2x left" aria-hidden="true"></i>Login With Google</a>
       </li>
+      <li>
+        <a href="/stories">
+          <i class="fa fa-book" aria-hidden="true"></i> Public Stores</a>
+      </li>
+      {{else}}
+      <li class="divider"></li>
+      <li>
+        <a href="/dashboard">
+          <i class="fa fa-cog" aria-hidden="true"></i> Dashboard</a>
+      </li>
+      <li>
+        <a href="/stories">
+          <i class="fa fa-book" aria-hidden="true"></i> Public Stores</a>
+      </li>
+      <li>
+        <a href="/stories/my">
+          <i class="fa fa-user" aria-hidden="true"></i> My Stories</a>
+      </li>
+      <li>
+        <a href="/auth/logout">
+          <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+      </li>
+      {{/unless}}
     </ul>
-    <a href="#" data-activates="main-menu" class="button-collapse show-on-medium-and-down">
-      <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
-    </a>
   </div>
 </nav>

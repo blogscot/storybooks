@@ -5,4 +5,8 @@ router.get('/', (req, res) => {
   res.render('stories')
 })
 
+router.get('/my', (req, res) => {
+  res.render('stories/my')
+})
+
 module.exports = router
