@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const path = require('path')
 const flash = require('connect-flash')
+const bodyParser = require('body-parser')
 
 const authRoutes = require('./routes/auth')
 const mainRoutes = require('./routes')
@@ -33,6 +34,9 @@ app.use(
 // Use Passport middleware after sesssion setup
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.engine('handlebars', hbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
