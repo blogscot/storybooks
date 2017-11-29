@@ -12,3 +12,4 @@ mongoose.connect(mongo.URI, {
 })
 
 module.exports.User = require('./user')
+module.exports.Story = require('./story')
