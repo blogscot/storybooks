@@ -8,6 +8,7 @@
   <title>Story Books</title>
   <link href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
   <link rel="stylesheet" href="/public/css/style.css">
 </head>
 
@@ -25,10 +26,14 @@
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   <script>
     $(document).ready(() => {
       $('.button-collapse').sideNav()
+      $('select').material_select()
     })
+    const simplemde = new SimpleMDE({ element: $("#user-story")[0] });
+    simplemde.value("Enter you story here");
   </script>
 </body>
 
