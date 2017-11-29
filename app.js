@@ -4,6 +4,7 @@ const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const path = require('path')
+const flash = require('connect-flash')
 
 const authRoutes = require('./routes/auth')
 const mainRoutes = require('./routes')
@@ -36,14 +37,18 @@ app.use(passport.session())
 app.engine('handlebars', hbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+app.use(flash())
+
 // Global variables
-app.use((req, res, next) => {
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.error_msg = req.flash('error_msg')
+  res.locals.error = req.flash('error')
   res.locals.user = req.user || null
   next()
 })
 
 // Routes
-
 app.use('/', mainRoutes)
 app.use('/auth', authRoutes)
 app.use('/stories', storyRoutes)
