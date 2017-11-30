@@ -7,9 +7,13 @@ const path = require('path')
 const flash = require('connect-flash')
 const bodyParser = require('body-parser')
 
+// Routes
 const authRoutes = require('./routes/auth')
 const mainRoutes = require('./routes')
 const storyRoutes = require('./routes/stories')
+
+// Helpers
+const { truncate, stripTags } = require('./helpers/hbs')
 
 // Set up Passport
 require('./config/passport')(passport)
@@ -38,7 +42,16 @@ app.use(passport.session())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.engine('handlebars', hbs({ defaultLayout: 'main' }))
+app.engine(
+  'handlebars',
+  hbs({
+    defaultLayout: 'main',
+    helpers: {
+      truncate,
+      stripTags,
+    },
+  })
+)
 app.set('view engine', 'handlebars')
 
 app.use(flash())

@@ -1,5 +1,9 @@
 const marked = require('marked')
 
+marked.setOptions({
+  smartypants: true,
+})
+
 // Converts markdown text into http
 const convertMarkdown = stories => {
   return stories.map(story => {

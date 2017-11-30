@@ -11,7 +11,7 @@
       </div>
       <div class="card-content center-align">
         <h5>{{title}}</h5>
-        <p class="story-text">{{contents}}</p>
+        <p class="story-text">{{stripTags (truncate contents 150)}}</p>
         <br>
         <div class="chip">
           <img src="{{user.imageURL}}" alt="story author"> {{user.firstName}} {{user.lastName}}
