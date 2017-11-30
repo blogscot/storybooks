@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const convertMarkdown = require('../helpers/stories')
 
 const { ensureAuthenticated } = require('../helpers/auth')
 const db = require('../models')
@@ -9,8 +8,7 @@ router.get('/', (req, res) => {
   db.Story.find({ status: 'public' })
     .populate('user')
     .then(stories => {
-      const converted = convertMarkdown(stories)
-      res.render('stories', { stories: converted })
+      res.render('stories', { stories })
     })
 })
 
@@ -20,6 +18,15 @@ router.get('/my', ensureAuthenticated, (req, res) => {
 
 router.get('/add', ensureAuthenticated, (req, res) => {
   res.render('stories/add')
+})
+
+router.get('/show/:id', (req, res) => {
+  const { id } = req.params
+  db.Story.findOne({ _id: id })
+    .populate('user')
+    .then(story => {
+      res.render('stories/show', { story })
+    })
 })
 
 router.post('/', ensureAuthenticated, (req, res) => {

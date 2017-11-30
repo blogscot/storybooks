@@ -13,7 +13,12 @@ const mainRoutes = require('./routes')
 const storyRoutes = require('./routes/stories')
 
 // Helpers
-const { truncate, stripTags } = require('./helpers/hbs')
+const {
+  convertMarkdown,
+  formatDate,
+  truncate,
+  stripTags,
+} = require('./helpers/hbs')
 
 // Set up Passport
 require('./config/passport')(passport)
@@ -47,6 +52,8 @@ app.engine(
   hbs({
     defaultLayout: 'main',
     helpers: {
+      convertMarkdown,
+      formatDate,
       truncate,
       stripTags,
     },

@@ -11,14 +11,14 @@
       </div>
       <div class="card-content center-align">
         <h5>{{title}}</h5>
-        <p class="story-text">{{stripTags (truncate contents 150)}}</p>
+        <p class="story-text">{{stripTags (truncate (convertMarkdown contents) 150)}}</p>
         <br>
         <div class="chip">
           <img src="{{user.imageURL}}" alt="story author"> {{user.firstName}} {{user.lastName}}
         </div>
       </div>
       <div class="card-action center-align">
-        <div class="btn teal" href="/stories/show/{{id}}">Read More</div>
+        <a class="btn teal" href="/stories/show/{{id}}">Read More</a>
       </div>
     </div>
   </div>

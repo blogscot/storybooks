@@ -1,3 +1,10 @@
+const marked = require('marked')
+const moment = require('moment')
+
+marked.setOptions({
+  smartypants: true,
+})
+
 module.exports = {
   truncate: (str, len) => {
     if (str.length > 0 && str.length > len) {
@@ -10,4 +17,6 @@ module.exports = {
     return str
   },
   stripTags: http => http.replace(/<(?:.|\n)*?>/gm, ''),
+  convertMarkdown: contents => marked(contents),
+  formatDate: (date, format) => moment(date).format(format),
 }
