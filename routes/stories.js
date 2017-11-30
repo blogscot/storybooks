@@ -29,6 +29,13 @@ router.get('/show/:id', (req, res) => {
     })
 })
 
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
+  const { id } = req.params
+  db.Story.findOne({ _id: id }).then(story => {
+    res.render('stories/edit', { story })
+  })
+})
+
 router.post('/', ensureAuthenticated, (req, res) => {
   const { allowedComments, contents, status, title } = req.body
   const { id: user } = req.user

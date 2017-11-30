@@ -17,6 +17,7 @@ const {
   convertMarkdown,
   formatDate,
   truncate,
+  select,
   stripTags,
 } = require('./helpers/hbs')
 
@@ -55,6 +56,7 @@ app.engine(
       convertMarkdown,
       formatDate,
       truncate,
+      select,
       stripTags,
     },
   })
