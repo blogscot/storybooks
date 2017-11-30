@@ -1,1 +1,28 @@
-<h1>Stories</h1>
+<h1>Public Stories</h1>
+<div class="row">
+  {{#each stories }}
+
+  <div class="col s12 m4">
+    <div class="card">
+      <div>
+        <a href="/stories/edit/{{id}}" class="btn-floating btn-edit red">
+          <i class="fa fa-pencil"></i>
+        </a>
+      </div>
+      <div class="card-content center-align">
+        <h5>{{title}}</h5>
+        <p class="story-text">{{contents}}</p>
+        <br>
+        <div class="chip">
+          <img src="{{user.imageURL}}" alt="story author"> {{user.firstName}} {{user.lastName}}
+        </div>
+      </div>
+      <div class="card-action center-align">
+        <div class="btn teal" href="/stories/show/{{id}}">Read More</div>
+      </div>
+    </div>
+  </div>
+  {{else}}
+  <p>You need to write some stories, dude!</p>
+  {{/each}}
+</div>

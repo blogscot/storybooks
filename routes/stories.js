@@ -1,11 +1,17 @@
 const express = require('express')
 const router = express.Router()
+const convertMarkdown = require('../helpers/stories')
 
 const { ensureAuthenticated } = require('../helpers/auth')
 const db = require('../models')
 
 router.get('/', (req, res) => {
-  res.render('stories')
+  db.Story.find({ status: 'public' })
+    .populate('user')
+    .then(stories => {
+      const converted = convertMarkdown(stories)
+      res.render('stories', { stories: converted })
+    })
 })
 
 router.get('/my', ensureAuthenticated, (req, res) => {
@@ -34,7 +40,7 @@ router.post('/', ensureAuthenticated, (req, res) => {
       res.redirect('/stories/my')
     })
     .catch(err => {
-      req.flash('error_msg', 'A problem occurred while registering')
+      req.flash('error_msg', 'A problem occurred while saving story')
       res.redirect('/story/add')
     })
 })

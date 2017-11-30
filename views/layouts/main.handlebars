@@ -31,9 +31,12 @@
     $(document).ready(() => {
       $('.button-collapse').sideNav()
       $('select').material_select()
+      $('.chips').material_chip();
     })
-    const simplemde = new SimpleMDE({ element: $("#contents")[0] });
-    simplemde.value("Enter you story here");
+    new SimpleMDE({
+      element: $("#contents")[0],
+      placeholder: "Enter your story here",
+    });
   </script>
 </body>
 
