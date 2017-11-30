@@ -22,6 +22,9 @@ main {
   h2 {
     font-size: 1.3rem;
   }
+  .btn {
+    transform: scale(0.8);
+  }
 }
 
 /* Edit Button style */
@@ -29,6 +32,19 @@ main {
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+/* Story styles */
+.story-text {
+  height: 120px;
+}
+
+.story-status {
+  text-transform: capitalize;
+}
+
+#delete-form {
+  display: inline;
 }
 
 /* Alert Styles */

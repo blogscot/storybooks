@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
+
 const { ensureAuthenticated, ensureGuest } = require('../helpers/auth')
+const db = require('../models')
 
 // landing page for guests is `Welcome page`
 // otherwise send logged-in users to the dashboard
@@ -9,7 +11,11 @@ router.get('/', ensureGuest, (req, res) => {
 })
 
 router.get('/dashboard', ensureAuthenticated, (req, res) => {
-  res.render('home/dashboard')
+  db.Story.find({ user: req.user.id })
+    .populate('user')
+    .then(stories => {
+      res.render('home/dashboard', { stories })
+    })
 })
 
 router.get('/about', (req, res) => {
