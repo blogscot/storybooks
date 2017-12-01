@@ -59,4 +59,39 @@ router.post('/', ensureAuthenticated, (req, res) => {
     })
 })
 
+router.put('/:id', ensureAuthenticated, (req, res) => {
+  const { id } = req.params
+  const { allowedComments, contents, status, title } = req.body
+  db.Story.findByIdAndUpdate(
+    { _id: id },
+    {
+      title,
+      contents,
+      status,
+      allowedComments: allowedComments === 'on',
+    },
+    () => {
+      req.flash('success_msg', 'Story updated')
+      res.redirect('/dashboard')
+    }
+  )
+})
+
+router.delete('/:id', ensureAuthenticated, (req, res) => {
+  const { id } = req.params
+  db.Story.findByIdAndRemove({ _id: id }, () => {
+    req.flash('success_msg', 'Story removed')
+    res.redirect('/dashboard')
+  })
+})
+
+router.get('/user/:id', ensureAuthenticated, (req, res) => {
+  const { id } = req.params
+  db.Story.find({ user: id })
+    .populate('user')
+    .then(stories => {
+      res.render('stories/my', { stories })
+    })
+})
+
 module.exports = router

@@ -6,6 +6,7 @@ const passport = require('passport')
 const path = require('path')
 const flash = require('connect-flash')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 // Routes
 const authRoutes = require('./routes/auth')
@@ -47,6 +48,8 @@ app.use(passport.session())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use(methodOverride('_method'))
 
 app.engine(
   'handlebars',
