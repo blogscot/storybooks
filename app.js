@@ -19,6 +19,7 @@ const {
   formatDate,
   truncate,
   select,
+  showEditIcon,
   stripTags,
 } = require('./helpers/hbs')
 
@@ -60,6 +61,7 @@ app.engine(
       formatDate,
       truncate,
       select,
+      showEditIcon,
       stripTags,
     },
   })

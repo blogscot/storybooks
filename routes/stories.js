@@ -7,6 +7,7 @@ const db = require('../models')
 router.get('/', (req, res) => {
   db.Story.find({ status: 'public' })
     .populate('user')
+    .sort({ date: 'desc' })
     .then(stories => {
       res.render('stories', { stories })
     })
@@ -32,9 +33,16 @@ router.get('/show/:id', (req, res) => {
 
 router.get('/edit/:id', ensureAuthenticated, (req, res) => {
   const { id } = req.params
-  db.Story.findOne({ _id: id }).then(story => {
-    res.render('stories/edit', { story })
-  })
+  db.Story.findOne({ _id: id })
+    .populate('user')
+    .then(story => {
+      // Only story owners can edit their stories
+      if (story.user.id === req.user.id) {
+        res.render('stories/edit', { story })
+      } else {
+        res.redirect('/stories')
+      }
+    })
 })
 
 router.post('/', ensureAuthenticated, (req, res) => {

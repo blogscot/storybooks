@@ -16,6 +16,8 @@ module.exports = {
     }
     return str
   },
+  showEditIcon: (storyUser, loggedInUser) =>
+    storyUser && loggedInUser && storyUser.id === loggedInUser.id,
   stripTags: http => http.replace(/<(?:.|\n)*?>/gm, ''),
   convertMarkdown: contents => marked(contents),
   formatDate: (date, format) => moment(date).format(format),
