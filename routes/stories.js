@@ -51,11 +51,11 @@ router.post('/', ensureAuthenticated, (req, res) => {
     .save()
     .then(story => {
       req.flash('success_msg', `Story added`)
-      res.redirect('/stories/my')
+      res.redirect(`/stories/user/${user}`)
     })
     .catch(err => {
       req.flash('error_msg', 'A problem occurred while saving story')
-      res.redirect('/story/add')
+      res.redirect('/stories/add')
     })
 })
 
@@ -92,6 +92,31 @@ router.get('/user/:id', ensureAuthenticated, (req, res) => {
     .then(stories => {
       res.render('stories/my', { stories })
     })
+})
+
+// For MongoDB operators see reference:
+// https://docs.mongodb.com/manual/reference/operator/
+
+router.post('/comment/:id', ensureAuthenticated, (req, res) => {
+  const { id } = req.params
+  const { commentBody } = req.body
+  const { id: commentUser } = req.user
+
+  db.Story.findByIdAndUpdate(
+    { _id: id },
+    {
+      $push: {
+        comments: {
+          commentBody,
+          commentUser,
+        },
+      },
+    },
+    () => {
+      req.flash('success_msg', 'Comment added')
+      res.redirect(`/stories/show/${id}`)
+    }
+  )
 })
 
 module.exports = router
