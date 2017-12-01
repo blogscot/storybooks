@@ -7,7 +7,20 @@
         {{{ convertMarkdown story.contents }}}
       </div>
     </div>
-    {{#if story.allowedComments}}
+
+    {{#each story.comments}}
+    <div class="card">
+      <div class="card-content">
+        <div>{{commentBody}}</div>
+        <hr />
+        <div class="chip">
+          <img src="{{commentUser.imageURL}}" alt="story author"> {{commentUser.firstName}} {{commentUser.lastName}}
+        </div>
+        <span class="comment-date">Posted: {{formatDate commentDate 'Do MMM YYYY'}}</span>
+
+      </div>
+    </div>
+    {{/each}} {{#if story.allowedComments}}
     <div class="card">
       <div class="card-content">
         <span class="card title">

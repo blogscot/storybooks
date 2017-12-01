@@ -47,6 +47,10 @@ main {
   display: inline;
 }
 
+.comment-date {
+  float: right;
+}
+
 /* Alert Styles */
 .alert {
   font-size: 1.6rem;
