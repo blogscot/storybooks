@@ -20,11 +20,12 @@
       <div class="card-content">
         <div>{{commentBody}}</div>
         <hr />
-        <div class="chip">
-          <img src="{{commentUser.imageURL}}" alt="story author"> {{commentUser.firstName}} {{commentUser.lastName}}
-        </div>
+        <a href="/stories/user/{{commentUser.id}}">
+          <div class="chip">
+            <img src="{{commentUser.imageURL}}" alt="story author"> {{commentUser.firstName}} {{commentUser.lastName}}
+          </div>
+        </a>
         <span class="comment-date">Posted: {{formatDate commentDate 'Do MMM YYYY'}}</span>
-
       </div>
     </div>
     {{/each}} {{#if story.allowedComments}}

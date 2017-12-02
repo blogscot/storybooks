@@ -15,9 +15,11 @@
         <h5>{{title}}</h5>
         <p class="story-text">{{stripTags (truncate (convertMarkdown contents) 150)}}</p>
         <br>
-        <div class="chip">
-          <img src="{{user.imageURL}}" alt="story author"> {{user.firstName}} {{user.lastName}}
-        </div>
+        <a href="/stories/user/{{user.id}}">
+          <div class="chip">
+            <img src="{{user.imageURL}}" alt="story author"> {{user.firstName}} {{user.lastName}}
+          </div>
+        </a>
       </div>
       <div class="card-action center-align">
         <a class="btn teal" href="/stories/show/{{id}}">Read More</a>
